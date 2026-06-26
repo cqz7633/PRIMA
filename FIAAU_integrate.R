@@ -4,7 +4,7 @@ suppressMessages(library(this.path))
 
 options<-matrix(c(
   "help", "h", "0", "logical","help",
-  "prima_dir", "f", "1", "character","FIAAU dir, the output dir for FIAAU_process.py",
+  "prima_dir", "f", "1", "character","PRIMA dir, the output dir for PRIMA_process.py",
   "control","c","1","character","control name",
   "treatment","t","1","character","treatment name",
   "over_num","n","2","integer","method overlap number, default: 2",
