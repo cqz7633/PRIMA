@@ -4,7 +4,7 @@ suppressMessages(library(this.path))
 
 options<-matrix(c(
   "help", "h", "0", "logical","help",
-  "fiaau_dir", "f", "1", "character","FIAAU dir, the output dir for FIAAU_process.py",
+  "prima_dir", "f", "1", "character","FIAAU dir, the output dir for FIAAU_process.py",
   "control","c","1","character","control name",
   "treatment","t","1","character","treatment name",
   "over_num","n","2","integer","method overlap number, default: 2",
@@ -15,7 +15,7 @@ options<-matrix(c(
 
 args=getopt(options)
 
-if (is.null(args$fiaau_dir) | is.null(args$control) | is.null(args$treatment)){
+if (is.null(args$prima_dir) | is.null(args$control) | is.null(args$treatment)){
   cat(getopt(options, usage=T), "\n")
   q() 
 }
@@ -33,7 +33,7 @@ if (is.null(args$qapa_cut)) {
  args$qapa_cut = 20
 }
 
-fiaau_dir = args$fiaau_dir
+fiaau_dir = args$prima_dir
 control = args$control
 treatment = args$treatment
 over_num = args$over_num
