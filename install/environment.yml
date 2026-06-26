@@ -1,4 +1,4 @@
-name: FIAAU
+name: PRIMA
 channels:
   - r
   - bioconda
@@ -333,4 +333,4 @@ dependencies:
   - zstd=1.5.5=hc292b87_0
   - pip:
       - .
-prefix: /public/home/qzchen/miniconda3/envs/FIAAU
+prefix: /public/home/qzchen/miniconda3/envs/PRIMA
