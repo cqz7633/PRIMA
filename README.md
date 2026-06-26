@@ -1,5 +1,5 @@
-# FIAAU
-We have integrated the processes and results of APAtrap, CSI-UTR, DaPars, diffUTR, LABRAT, and QAPA methods, and proposed the FIAAU (Framework for integrated analysis of alternative 3' UTR) based on Fisher transformation and weighted voting for dynamic change identification of 3' UTR.
+# PRIMA
+We have integrated the processes and results of APAtrap, CSI-UTR, DaPars, diffUTR, LABRAT, and QAPA methods, and proposed the PRIMA (Principled Integration of Multi-method APA analysis) based on Fisher transformation and weighted voting for dynamic change identification of 3' UTR.
 
 ![Overview](./images/FIAAU_pipline.png)
 
@@ -10,17 +10,17 @@ The installation process requires `Perl` and `Conda`, so you need to install the
 First, download the repository and create the environment. Some dependencies related to the R language in yml may fail to download. If you encounter this issue, please try again a few times.
 
 ```
-git clone https://github.com/cqz7633/FIAAU.git
-cd ./FIAAU/install
+git clone https://github.com/cqz7633/PRIMA.git
+cd ./PRIMA/install
 conda env create -f environment.yml
 ```
 
-Then, activate the `FIAAU` environment.
+Then, activate the `PRIMA` environment.
 
 ```
-conda activate FIAAU
+conda activate PRIMA
 ```
-*NOTE:* Please ensure that your R is calling in the FIAAU environment.
+*NOTE:* Please ensure that your R is calling in the PRIMA environment.
 
 ### Install Perl package and local R package
 We have compiled a simple installation bash script, please run it directly.
@@ -34,9 +34,9 @@ bash install.sh
 ### 1. Mouse annotation(mm10) of methods
 
 We provide annotation files for the 3'UTR of mouse mm10 required for APAtrap, CSI-UTR, DaPars, diffUTR, LABRAT, and QAPA. This annotation is based on the integration of GENCODE and PolyA_DB3 databases and can be downloaded from [Google Drive](https://drive.google.com/file/d/1ki3yKC0YcGy36pWV0XFleV3_Za3rh7aQ/view?usp=drive_link).
-After downloading and decompressing, move the `mm10` directory to the `/FIAAU/anno`. The file structure is provided as below:
+After downloading and decompressing, move the `mm10` directory to the `/PRIMA/anno`. The file structure is provided as below:
 ```
-FIAAU/  
+PRIMA/  
 └── anno  
    └── mm10  
        ├── apatrap_3utr.bed  
@@ -87,18 +87,18 @@ The BAM sample file is provided as below:
 | /PATH/treatment_rep1.bam | treatment |
 | /PATH/treatment_rep2.bam | treatment |
 
-## Run FIAAU pipline
+## Run PRIMA pipline
 
-FIAAU consists of two parts, one for running six methods and the other for integrating the results of the six methods. Please do not change the structure of the original FIAAU directory.
+PRIMA consists of two parts, one for running six methods and the other for integrating the results of the six methods. Please do not change the structure of the original PRIMA directory.
 
 ### 6 methods process
 
 The operation of six methods is controlled by a Python script, with each method generating a Bash script and running simultaneously.  
 
-The parameters of the `FIAAU_process.py` script is provided as below:
+The parameters of the `PRIMA_process.py` script is provided as below:
 
 ```
-usage: FIAAU_process.py [-h] [-f F] [-b B] [-c C] [-t T] [-p P] [-m M] [-r R] [-o O] [-l L] [-bs BS] [-ct CT]
+usage: PRIMA_process.py [-h] [-f F] [-b B] [-c C] [-t T] [-p P] [-m M] [-r R] [-o O] [-l L] [-bs BS] [-ct CT]
 
 optional arguments:
   -h, --help  show this help message and exit
@@ -109,7 +109,7 @@ optional arguments:
   -p P        paired or single ('y' or 'n') default: y
   -m M        core numbers default: 4
   -r R        reads length  default: 150
-  -o O        out put dir  default: ./FIAAU_Y-m-d_H-M-S
+  -o O        out put dir  default: ./PRIMA_Y-m-d_H-M-S
   -l L        run the step 'makeTFfasta' of LABRAT or not ('y' or 'n') default: n
   -bs BS      bin size for calculating big wig file default: 10
   -ct CT      coverage cut off default: 0.5
@@ -117,18 +117,18 @@ optional arguments:
 An example of running a command is provided as below:
 
 ```
-python FIAAU_process.py -f /PATH/FastQ_info.txt -b /PATH/Bam_info.txt -c control -t treatment -o /PATH/output/
+python PRIMA_process.py -f /PATH/FastQ_info.txt -b /PATH/Bam_info.txt -c control -t treatment -o /PATH/output/
 ```
 
 ### Integration results process
 
-The integration process is controlled by an R script, which will generate the FIAAU_integate directory under the output parameter directory of FIAAU_process.py and save the results here. Please be careful not to change the structure of the six method directories and the names of the result files in the FIAAU process output directory. The integration section will read them in a relatively fixed path. 
+The integration process is controlled by an R script, which will generate the PRIMA_integate directory under the output parameter directory of PRIMA_process.py and save the results here. Please be careful not to change the structure of the six method directories and the names of the result files in the PRIMA process output directory. The integration section will read them in a relatively fixed path. 
 
-The parameters of the `FIAAU_integrate.R` script is provided as below:
+The parameters of the `PRIMA_integrate.R` script is provided as below:
 ```
-Usage: FIAAU_integrate.R [-[-help|h]] [-[-fiaau_dir|f] <character>] [-[-control|c] <character>] [-[-treatment|t] <character>] [-[-over_num|n] [<integer>]] [-[-qapa_cut|q] [<double>]] [-[-p_met|pm] [<double>]] [-[-p_int|pi] [<double>]]
+Usage: PRIMA_integrate.R [-[-help|h]] [-[-prima_dir|f] <character>] [-[-control|c] <character>] [-[-treatment|t] <character>] [-[-over_num|n] [<integer>]] [-[-qapa_cut|q] [<double>]] [-[-p_met|pm] [<double>]] [-[-p_int|pi] [<double>]]
     -h|--help         help
-    -f|--fiaau_dir    FIAAU dir, the output dir for FIAAU_process.py
+    -f|--prima_dir    PRIMA dir, the output dir for PRIMA_process.py
     -c|--control      control name
     -t|--treatment    treatment name
     -n|--over_num     method overlap number, default: 2
@@ -139,5 +139,5 @@ Usage: FIAAU_integrate.R [-[-help|h]] [-[-fiaau_dir|f] <character>] [-[-control|
 An example of running a command is provided as below:
 
 ```
-Rscript FIAAU_integrate.R -f /PATH/FIAAU_process_output_dir -c control -t treatment
+Rscript PRIMA_integrate.R -f /PATH/PRIMA_process_output_dir -c control -t treatment
 ```
