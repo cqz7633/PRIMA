@@ -6,7 +6,7 @@ from datetime import datetime
 
 from scripts.utils import *
 
-parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description="FIAAU for 6 methods processed")
+parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description="PRIMA for 6 methods processed")
 parser.add_argument("-f", type=str, default="", help="absolute paths of fastq information file")
 parser.add_argument("-b", type=str, default="", help="absolute paths of bam information file")
 parser.add_argument("-c", type=str, default="", help="control")
@@ -37,7 +37,7 @@ treatment = args.t
 maketf = args.l
 bin_size = args.bs
 cov_cutoff = args.ct
-if args.o == "/FIAAU":
+if args.o == "/PRIMA":
     out_path = current_dir + args.o + "_" + formatted_time + "/"
 else:
     out_path = check_path(args.o)
